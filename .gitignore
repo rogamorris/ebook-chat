@@ -3,6 +3,7 @@
 # .gitignore
 node_modules/
 api/venv/
+.env
 
 # dependencies
 /node_modules

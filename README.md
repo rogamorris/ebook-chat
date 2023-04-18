@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# ebook-chat
+This is a web app that allows you to upload an ebook and ask questions about it using a chat interface. I relied heavily on ChatGPT (GPT-4) in building it. My motivation was to practice building web apps using ChatGPT, and I thought it would be cool if I could eventually have a tool that I can upload my favorite non-fiction books to and ask questions about them.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Here's the initial prompt I used, which I thought worked quite well:
+Please act as an expert full-stack web developer who is teaching me to build a web app using React and Flask, step by step. A few things to keep in mind: work as iteratively as possible by having me test each step to ensure it works before proceeding to the next step. Instruct me to commit code to GitHub after each step. Thoroughly comment any code you write so I understand what it does.
 
-## Available Scripts
+The goal is to build a web app that allows a user to upload a non-fiction ebook and ask anything about the book with chat interface, using the OpenAI API. 
 
-In the project directory, you can run:
+Here is a description of the basic requirements.
 
-### `npm start`
+Requirement 1: User can select and upload an ebook from their computer
+* Only allow files in EPUB format to be uploaded
+* Return an error letting a user know if the EPUB file they uploaded is unreadable (this could be due to DRM protection or missing/corrupt data)
+* Return an error letting a user know if they have exceeded the max file size (for now, let’s set the max file size to 15 MB)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Requirement 2: Once an ebook has been uploaded, the app uses OpenAI API and the best available chunking/summarization techniques to understand the content of the ebook
+* The finished app should be capable of clearly and accurately summarizing a book that has millions of words.
+* The finished app should also understand specific concepts or ideas in the book and either explain or expand on those ideas
+* Make sure the summarization logic is in it’s own module so it can be iteratively improved without affecting the rest of the app
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Requirement 3: User can ask questions about the book they uploaded using a ChatGPT-like interface
 
-### `npm test`
+The above are the basic requirements, please ask any clarifying questions before we get started with working on this project.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## To Do
+- Right now, you can only upload EPUB files that are shorter than GPT-3.5-Turbo's context window. I still need to figure out how to implement logic that divides a book down into smaller chunks and summarizes each chunk so you can use the app with normal-lenght books.
+- I want to make the chat interface look a lot better
+- I'm considering other features, such as the ability to upload different content types (youtube or article link), ability to ask questions across multiple content sources (e.g. imagine you wanted to synthesize multiple books).

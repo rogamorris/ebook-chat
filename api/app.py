@@ -5,6 +5,10 @@ from werkzeug.utils import secure_filename
 import os
 from utils import allowed_file, validate_epub, file_size
 from epub_processing import process_epub
+import openai
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -47,7 +51,32 @@ class Upload(Resource):
 
         return {'message': 'File uploaded and summarized successfully.', 'summary': summary}, 200
 
+class Chat(Resource):
+    @cross_origin()
+    def post(self):
+        data = request.get_json()
 
+        input_text = data.get('input', '')
+        summary = data.get('summary', '')
+
+        if not input_text or not summary:
+            print("Missing input or summary in the request data")
+            return {'error': 'Missing input or summary'}, 400
+
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[{'role': 'assistant', 'content': summary}, {'role': 'user', 'content': input_text}]
+            )
+        except Exception as e:
+            print("Error processing chat request:", e)
+            return {'error': 'Failed to process the chat request.'}, 400
+
+        assistant_response = response.choices[0].message.content
+
+        return {'message': assistant_response}, 200
+
+api.add_resource(Chat, '/chat')
 api.add_resource(Upload, '/upload')
 
 if __name__ == '__main__':

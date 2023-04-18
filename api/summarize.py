@@ -3,7 +3,7 @@ import os
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def summarize_text(text, max_tokens=100):
+def summarize_text(text, max_tokens=300):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[

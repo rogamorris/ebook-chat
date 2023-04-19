@@ -2,6 +2,7 @@
 This is a web app that allows you to upload an ebook and ask questions about it using a chat interface. I relied heavily on ChatGPT (GPT-4) in building it. My motivation was to practice building web apps using ChatGPT, and I thought it would be cool if I could eventually have a tool that I can upload my favorite non-fiction books to and ask questions about them.
 
 Here's the initial prompt I used, which I thought worked quite well:
+
 Please act as an expert full-stack web developer who is teaching me to build a web app using React and Flask, step by step. A few things to keep in mind: work as iteratively as possible by having me test each step to ensure it works before proceeding to the next step. Instruct me to commit code to GitHub after each step. Thoroughly comment any code you write so I understand what it does.
 
 The goal is to build a web app that allows a user to upload a non-fiction ebook and ask anything about the book with chat interface, using the OpenAI API. 
